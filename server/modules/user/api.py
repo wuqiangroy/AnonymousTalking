@@ -1,30 +1,18 @@
 #!usr/bin/env python
 # _*_ coding:utf-8 _*_
 
-from flask import jsonify, request
-from flask.views import MethodView
+from flask import request
 
 from . import user
 from .controller import *
-from ..const import Const, Msg
-from .model import User
+from ..const import Const
+from ..functions import make_response
 
 
-def make_response(status=1200, data=None):
-    return jsonify({
-        "code": status,
-        "msg": Msg.msg[status],
-        "data": data
-    })
-
-
-@user.route("/login", methods=["POST"])
-def login():
-    form = LoginForm(request.form)
+@user.route("/register", methods=["POST"])
+def register():
+    form = RegisterForm(request.form)
     if not form:
-        return make_response(status=Const.MISSPARAM, data=None)
-    phone = form.get("phone")
-    password = form.get("password")
-    user = User.objects(phone=phone).first()
-    if not user:
-        return make_response(status=Const.NO_REGISTER, data=None)
+        return make_response(Const.MISSPARAM, None)
+
+
