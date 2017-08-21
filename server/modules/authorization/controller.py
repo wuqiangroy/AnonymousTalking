@@ -1,12 +1,11 @@
 #!usr/bin/env python
 # _*_ coding:utf-8 _*_
 
-from wtforms import Form, StringField
-from wtforms.validators import required, Length
+from marshmallow import Schema, fields, validate
 
 
-class LoginForm(Form):
+class LoginForm(Schema):
     """the login form"""
 
-    phone = StringField("phone", [required(), Length(11)])
-    password = StringField("password", [required(), Length(1, 64)])
+    phone = fields.Str(validate=validate.Length(equal=11), required=True)
+    password = fields.Str(validate=validate.Length(max=32), required=True)
