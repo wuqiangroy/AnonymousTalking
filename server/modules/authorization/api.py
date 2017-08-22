@@ -13,10 +13,17 @@ from ..user.model import User
 @authorization.route("/login", methods=["POST"])
 def login():
     form = LoginForm(request.form)
-    if not form:
+    if not form.validate():
         return make_response(status=Const.MISSPARAM, data=None)
-    phone = form.get("phone")
-    password = form.get("password")
+    phone = form.phone.data
+    password = form.password.data
     user = User.objects(phone=phone).first()
-    if not user:
-        return make_response(status=Const.NO_REGISTER, data=None)
+    if user is not None and user.verity_password(password):
+        res = {
+            "token": user.token,
+            "username": user.username,
+            "phone": user.phone
+        }
+        return make_response(data=res)
+    else:
+        return make_response(status=1203)

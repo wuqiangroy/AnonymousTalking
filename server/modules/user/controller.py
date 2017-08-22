@@ -1,13 +1,13 @@
 #!usr/bin/env python
 # _*_ coding:utf-8 _*_
 
-from marshmallow import Schema, fields, validate
+from wtforms import Form, StringField, validators
 
 
-class RegisterForm(Schema):
+class RegisterForm(Form):
     """the register form"""
 
-    username = fields.Str(validate=validate.Length(max=32), required=True)
-    phone = fields.Str(validate=validate.Length(equal=11), required=True)
-    sex = fields.Str()
-    password = fields.Str(validate=validate.Length(max=32), required=True)
+    username = StringField("username", [validators.Length(1, 32)])
+    phone = StringField("phone", [validators.Regexp(r"^1\d{10}")])
+    sex = StringField()
+    password = StringField("password", [validators.Length(1, 32)])
