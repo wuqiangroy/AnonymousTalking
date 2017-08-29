@@ -12,7 +12,7 @@ from ..const import Const
 from ..functions import make_response
 
 
-@user.route("/register", methods=["POST"])
+@user.route("/create_user", methods=["POST"])
 def register():
     form = RegisterForm(request.form)
     if not form.validate():
@@ -34,4 +34,3 @@ def register():
     except Exception as e:
         logging.debug("[REGISTER][BUG|{}]".format(str(e)))
         return make_response(status=2006)
-
