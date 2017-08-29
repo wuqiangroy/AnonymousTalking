@@ -9,6 +9,7 @@ class Const(object):
     MISSPARAM = 1202
     LOGIN_FAILED = 1203
     INNER_ERROR = 2006
+    NOT_SAME_PASSWORD = 1204
 
 
 class Msg(object):
@@ -18,5 +19,6 @@ class Msg(object):
         1200: "SUCCESS",
         1202: "MISSPARAM",
         1203: "NO_REGISTER",
-        2006: "INNER_ERROR"
+        2006: "INNER_ERROR",
+        1204: "NOT_SAME_PASSWORD"
     }
